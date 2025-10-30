@@ -1,0 +1,706 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Экраны */
+.screen {
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.screen.active {
+    display: flex;
+}
+
+.screen-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.screen-header h2 {
+    flex: 1;
+    text-align: center;
+}
+
+.back-btn {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.screen-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0.7;
+}
+
+/* Шапка */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.nav-btn {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.currency {
+    display: flex;
+    gap: 15px;
+    font-weight: bold;
+}
+
+/* Анимация воды */
+.water-container {
+    position: relative;
+    height: 200px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.water {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(180deg, transparent 0%, #4a90e2 100%);
+    animation: wave 3s ease-in-out infinite;
+}
+
+@keyframes wave {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+}
+
+.fish-animation {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.fish {
+    position: absolute;
+    font-size: 24px;
+    animation: swim 8s linear infinite;
+}
+
+@keyframes swim {
+    0% { transform: translateX(-50px) translateY(0px); }
+    25% { transform: translateX(25vw) translateY(-20px); }
+    50% { transform: translateX(50vw) translateY(0px); }
+    75% { transform: translateX(75vw) translateY(-20px); }
+    100% { transform: translateX(100vw) translateY(0px); }
+}
+
+.status-text {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Основные кнопки */
+.main-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.main-btn {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    border: none;
+    border-radius: 15px;
+    color: #333;
+    padding: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.main-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Нижняя навигация */
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    background: rgba(255,255,255,0.1);
+    border-radius: 25px;
+    padding: 10px;
+    margin-top: auto;
+}
+
+.nav-item {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+.nav-item.active {
+    background: rgba(255,255,255,0.2);
+}
+
+/* Достижения */
+.achievements-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.achievement {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.achievement-icon {
+    font-size: 24px;
+    margin-right: 15px;
+}
+
+.achievement-info {
+    flex: 1;
+}
+
+.achievement-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.achievement-desc {
+    font-size: 12px;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.achievement-reward {
+    font-size: 12px;
+    color: #FFD700;
+}
+
+.achievement-status {
+    font-size: 20px;
+}
+
+.achievement-status.locked {
+    color: #666;
+}
+
+.achievement-status.unlocked {
+    color: #4CAF50;
+}
+
+/* Игры */
+.games-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.game-card {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.game-card:hover {
+    transform: scale(1.05);
+}
+
+.game-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.game-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.game-desc {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* Рулетка */
+.roulette-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.roulette-wheel {
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-wrap: wrap;
+    padding: 10px;
+    gap: 2px;
+}
+
+.bet-controls {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.bet-info {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.current-bet {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.bet-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.bet-btn {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.spin-btn {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    border: none;
+    border-radius: 10px;
+    color: #333;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Рыбалка */
+.fishing-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.fishing-pond {
+    flex: 1;
+    position: relative;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.fisherman {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 32px;
+    z-index: 2;
+}
+
+.water-pond {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 70%;
+    background: linear-gradient(180deg, transparent 0%, #4a90e2 100%);
+}
+
+.fish-school {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.cast-options {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.cast-btn {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 15px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.cast-btn:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.fishing-stats {
+    text-align: center;
+    opacity: 0.8;
+}
+
+/* Слоты */
+.slots-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.slots-machine {
+    flex: 1;
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slots-reel {
+    display: flex;
+    gap: 10px;
+}
+
+.slot {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: #333;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.slots-controls {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.slots-controls .bet-controls {
+    background: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.result {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    min-height: 24px;
+}
+
+.win { color: #4CAF50; }
+.lose { color: #ff9800; }
+.error { color: #f44336; }
+
+/* Кейсы */
+.cases-container {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.cases-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 10px;
+}
+
+.case-card {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+    position: relative;
+}
+
+.case-card:hover {
+    transform: scale(1.05);
+}
+
+.case-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.case-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.case-price {
+    color: #FFD700;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.case-timer {
+    font-size: 10px;
+    opacity: 0.7;
+}
+
+/* Минки */
+.mines-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.mines-info {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    text-align: center;
+}
+
+.mines-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+    margin-bottom: 15px;
+    flex: 1;
+}
+
+.mine-cell {
+    aspect-ratio: 1;
+    background: rgba(255,255,255,0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s;
+}
+
+.mine-cell.revealed {
+    background: rgba(76, 175, 80, 0.3);
+}
+
+.mine-cell.mine {
+    background: rgba(244, 67, 54, 0.3);
+}
+
+.mine-cell:hover:not(.revealed):not(.mine) {
+    background: rgba(255,255,255,0.3);
+}
+
+.mines-controls {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.mines-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.mines-btn, .cashout-btn, .start-btn {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 12px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.cashout-btn {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+}
+
+.start-btn {
+    background: linear-gradient(45deg, #2196F3, #1976D2);
+}
+
+.cashout-btn:disabled {
+    background: rgba(255,255,255,0.1);
+    cursor: not-allowed;
+}
+
+.mines-btn:hover, .cashout-btn:hover:not(:disabled), .start-btn:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    border-radius: 20px;
+    padding: 20px;
+    max-width: 300px;
+    width: 90%;
+    text-align: center;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.case-reward {
+    font-size: 48px;
+    margin: 20px 0;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.reward-amount {
+    font-size: 24px;
+    color: #FFD700;
+    font-weight: bold;
+}
+
+/* Стили для рулетки */
+.roulette-number {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin: 2px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.roulette-number.red { background: #ff4444; color: white; }
+.roulette-number.black { background: #333; color: white; }
+.roulette-number.green { background: #4CAF50; color: white; }
+
+/* Анимация пойманной рыбы */
+@keyframes catch {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-50px) scale(1.2); }
+    100% { transform: translateY(0) scale(1); opacity: 0; }
+}
+
+.caught-fish {
+    animation: catch 2s ease-in-out;
+}
+
+/* Адаптивность */
+@media (max-width: 400px) {
+    .main-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cases-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .slot {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+    }
+}

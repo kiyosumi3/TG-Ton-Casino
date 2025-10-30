@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎣 Удилка</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Главный экран -->
+        <div class="screen main-screen active">
+            <div class="header">
+                <button class="nav-btn" onclick="showScreen('profile')">👤</button>
+                <div class="currency">
+                    <span class="anchors">⚓ <span id="anchorCount">1,000</span></span>
+                    <span class="stars">⭐ <span id="starCount">100</span></span>
+                </div>
+            </div>
+
+            <div class="water-container">
+                <div class="water"></div>
+                <div class="fish-animation">
+                    <div class="fish" style="animation-delay: 0s">🐟</div>
+                    <div class="fish" style="animation-delay: 1s">🐠</div>
+                    <div class="fish" style="animation-delay: 2s">🦈</div>
+                    <div class="fish" style="animation-delay: 3s">🐡</div>
+                </div>
+                <div class="status-text">Вы на плаву</div>
+            </div>
+
+            <div class="main-buttons">
+                <button class="main-btn" onclick="showScreen('tasks')">🎯 Задания</button>
+                <button class="main-btn" onclick="showScreen('casino')">🎰 Игры</button>
+                <button class="main-btn" onclick="showScreen('shop')">🛍️ Магазин</button>
+                <button class="main-btn" onclick="showScreen('leaders')">🏆 Лидеры</button>
+            </div>
+
+            <!-- Нижняя навигация -->
+            <div class="bottom-nav">
+                <button class="nav-item active" onclick="showScreen('main')">🏠</button>
+                <button class="nav-item" onclick="showScreen('fishing')">🎣</button>
+                <button class="nav-item" onclick="showScreen('achievements')">🏆</button>
+                <button class="nav-item" onclick="showScreen('history')">📊</button>
+            </div>
+        </div>
+
+        <!-- Экран достижений -->
+        <div class="screen achievements-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('main')">←</button>
+                <h2>🏆 Достижения</h2>
+            </div>
+
+            <div class="achievements-list">
+                <div class="achievement" data-id="first_catch">
+                    <div class="achievement-icon">🎣</div>
+                    <div class="achievement-info">
+                        <div class="achievement-name">Первый улов</div>
+                        <div class="achievement-desc">Первый вывод подарка</div>
+                        <div class="achievement-reward">+10,000 ⚓</div>
+                    </div>
+                    <div class="achievement-status locked">🔒</div>
+                </div>
+
+                <div class="achievement" data-id="long_rod">
+                    <div class="achievement-icon">🎯</div>
+                    <div class="achievement-info">
+                        <div class="achievement-name">Длинная удочка</div>
+                        <div class="achievement-desc">10 забросов</div>
+                        <div class="achievement-reward">+50,000 ⚓</div>
+                    </div>
+                    <div class="achievement-status locked">🔒</div>
+                </div>
+
+                <div class="achievement" data-id="fat_fisherman">
+                    <div class="achievement-icon">💰</div>
+                    <div class="achievement-info">
+                        <div class="achievement-name">Толстый рыбак</div>
+                        <div class="achievement-desc">10к донат звезд</div>
+                        <div class="achievement-reward">+500,000 ⚓</div>
+                    </div>
+                    <div class="achievement-status locked">🔒</div>
+                </div>
+
+                <div class="achievement" data-id="hat_trick">
+                    <div class="achievement-icon">🎩</div>
+                    <div class="achievement-info">
+                        <div class="achievement-name">Шляпа</div>
+                        <div class="achievement-desc">Выигрышная ставка на ноль</div>
+                        <div class="achievement-reward">+100,000 ⚓</div>
+                    </div>
+                    <div class="achievement-status locked">🔒</div>
+                </div>
+
+                <div class="achievement" data-id="hooked">
+                    <div class="achievement-icon">👥</div>
+                    <div class="achievement-info">
+                        <div class="achievement-name">Поймал на крючок</div>
+                        <div class="achievement-desc">Пригласил 50 друзей</div>
+                        <div class="achievement-reward">+1,000,000 ⚓</div>
+                    </div>
+                    <div class="achievement-status locked">🔒</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран игр -->
+        <div class="screen casino-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('main')">←</button>
+                <h2>🎰 Игры</h2>
+            </div>
+
+            <div class="games-grid">
+                <div class="game-card" onclick="showScreen('roulette')">
+                    <div class="game-icon">🎡</div>
+                    <div class="game-name">Рулетка</div>
+                    <div class="game-desc">MIN 0.1 - MAX 20</div>
+                </div>
+
+                <div class="game-card" onclick="showScreen('fishing')">
+                    <div class="game-icon">🎣</div>
+                    <div class="game-name">Рыбалка</div>
+                    <div class="game-desc">Лови NFT-рыбу</div>
+                </div>
+
+                <div class="game-card" onclick="showScreen('slots')">
+                    <div class="game-icon">🎰</div>
+                    <div class="game-name">Слоты</div>
+                    <div class="game-desc">NFT и подарки</div>
+                </div>
+
+                <div class="game-card" onclick="showScreen('cases')">
+                    <div class="game-icon">🎁</div>
+                    <div class="game-name">Кейсы</div>
+                    <div class="game-desc">7 видов кейсов</div>
+                </div>
+
+                <div class="game-card" onclick="showScreen('mines')">
+                    <div class="game-icon">💣</div>
+                    <div class="game-name">Минки</div>
+                    <div class="game-desc">MIN 200 ⭐</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран рулетки -->
+        <div class="screen roulette-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('casino')">←</button>
+                <h2>🎡 Рулетка</h2>
+            </div>
+
+            <div class="roulette-container">
+                <div class="roulette-wheel" id="rouletteWheel"></div>
+                
+                <div class="bet-controls">
+                    <div class="bet-info">
+                        <div>MIN 0.1 ⭐ - MAX 20 ⭐</div>
+                        <div class="current-bet">Ставка: <span id="currentBet">1</span> ⭐</div>
+                    </div>
+                    
+                    <div class="bet-buttons">
+                        <button class="bet-btn" onclick="changeBet(-0.1)">-0.1</button>
+                        <button class="bet-btn" onclick="changeBet(0.1)">+0.1</button>
+                        <button class="bet-btn" onclick="changeBet(-1)">-1</button>
+                        <button class="bet-btn" onclick="changeBet(1)">+1</button>
+                    </div>
+                    
+                    <button class="spin-btn" onclick="spinRoulette()">КРУТИТЬ</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран рыбалки -->
+        <div class="screen fishing-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('casino')">←</button>
+                <h2>🎣 Рыбалка</h2>
+            </div>
+
+            <div class="fishing-container">
+                <div class="fishing-pond">
+                    <div class="fisherman">🎣</div>
+                    <div class="water-pond">
+                        <div class="fish-school"></div>
+                    </div>
+                </div>
+                
+                <div class="fishing-controls">
+                    <div class="cast-options">
+                        <button class="cast-btn" onclick="castRod(100)">Заброс 100 ⭐</button>
+                        <button class="cast-btn" onclick="castRod(500)">Заброс 500 ⭐</button>
+                        <button class="cast-btn" onclick="castRod(1000)">Заброс 1000 ⭐</button>
+                    </div>
+                    <div class="fishing-stats">
+                        Забросов: <span id="castCount">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран слотов -->
+        <div class="screen slots-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('casino')">←</button>
+                <h2>🎰 Слоты</h2>
+            </div>
+
+            <div class="slots-container">
+                <div class="slots-machine">
+                    <div class="slots-reel">
+                        <div class="slot" id="slot1">🎁</div>
+                        <div class="slot" id="slot2">🎁</div>
+                        <div class="slot" id="slot3">🎁</div>
+                    </div>
+                </div>
+                
+                <div class="slots-controls">
+                    <div class="bet-controls">
+                        <button class="bet-btn" onclick="changeSlotBet(-10)">-10</button>
+                        <div class="current-bet">Ставка: <span id="slotBet">10</span> ⭐</div>
+                        <button class="bet-btn" onclick="changeSlotBet(10)">+10</button>
+                    </div>
+                    
+                    <button class="spin-btn" onclick="playSlots()">КРУТИТЬ</button>
+                    <div class="result" id="slotResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран кейсов -->
+        <div class="screen cases-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('casino')">←</button>
+                <h2>🎁 Кейсы</h2>
+            </div>
+
+            <div class="cases-container">
+                <div class="cases-grid">
+                    <div class="case-card" data-case="rotten_tooth" onclick="openCase('rotten_tooth')">
+                        <div class="case-icon">🦷</div>
+                        <div class="case-name">Гнилозубый</div>
+                        <div class="case-price">300 ⭐</div>
+                        <div class="case-timer" id="rottenTimer">Бесплатно через: 24:00:00</div>
+                    </div>
+
+                    <div class="case-card" data-case="new_year" onclick="openCase('new_year')">
+                        <div class="case-icon">🎄</div>
+                        <div class="case-name">Новогодний</div>
+                        <div class="case-price">700 ⭐</div>
+                    </div>
+
+                    <div class="case-card" data-case="gem" onclick="openCase('gem')">
+                        <div class="case-icon">💎</div>
+                        <div class="case-name">Гем</div>
+                        <div class="case-price">1,500 ⭐</div>
+                    </div>
+
+                    <div class="case-card" data-case="halloween" onclick="openCase('halloween')">
+                        <div class="case-icon">🎃</div>
+                        <div class="case-name">Хеллоуин</div>
+                        <div class="case-price">3,000 ⭐</div>
+                    </div>
+
+                    <div class="case-card" data-case="barvikha" onclick="openCase('barvikha')">
+                        <div class="case-icon">🏘️</div>
+                        <div class="case-name">Барвиха</div>
+                        <div class="case-price">5,000 ⭐</div>
+                    </div>
+
+                    <div class="case-card" data-case="glamour" onclick="openCase('glamour')">
+                        <div class="case-icon">✨</div>
+                        <div class="case-name">Гламурный</div>
+                        <div class="case-price">7,000 ⭐</div>
+                    </div>
+
+                    <div class="case-card" data-case="dark_horse" onclick="openCase('dark_horse')">
+                        <div class="case-icon">🐎</div>
+                        <div class="case-name">Темная лошадка</div>
+                        <div class="case-price">10,000 ⭐</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран мин -->
+        <div class="screen mines-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('casino')">←</button>
+                <h2>💣 Минки</h2>
+            </div>
+
+            <div class="mines-container">
+                <div class="mines-info">
+                    <div>Ставка: <span id="minesBet">200</span> ⭐</div>
+                    <div>Коэффициент: <span id="minesMultiplier">1.00x</span></div>
+                    <div>Мин: <span id="minesCount">3</span></div>
+                    <div>Текущий выигрыш: <span id="minesCurrentWin">0</span> ⭐</div>
+                </div>
+
+                <div class="mines-grid" id="minesGrid"></div>
+
+                <div class="mines-controls">
+                    <div class="mines-buttons">
+                        <button class="mines-btn" onclick="changeMinesBet(-100)">-100</button>
+                        <button class="mines-btn" onclick="changeMinesBet(100)">+100</button>
+                        <button class="mines-btn" onclick="changeMinesCount(-1)">-1 мина</button>
+                        <button class="mines-btn" onclick="changeMinesCount(1)">+1 мина</button>
+                    </div>
+                    
+                    <button class="cashout-btn" onclick="cashoutMines()" disabled id="cashoutBtn">ЗАБРАТЬ</button>
+                    <button class="start-btn" onclick="startMinesGame()" id="startMinesBtn">НАЧАТЬ</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно для кейсов -->
+        <div class="modal" id="caseModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalCaseName">Открытие кейса</h3>
+                    <button class="close-btn" onclick="closeCaseModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="case-reward" id="caseReward"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Заглушки для остальных экранов -->
+        <div class="screen profile-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('main')">←</button>
+                <h2>👤 Профиль</h2>
+            </div>
+            <div class="screen-content">
+                <p>Профиль в разработке...</p>
+            </div>
+        </div>
+
+        <div class="screen tasks-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('main')">←</button>
+                <h2>🎯 Задания</h2>
+            </div>
+            <div class="screen-content">
+                <p>Задания в разработке...</p>
+            </div>
+        </div>
+
+        <div class="screen shop-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('main')">←</button>
+                <h2>🛍️ Магазин</h2>
+            </div>
+            <div class="screen-content">
+                <p>Магазин в разработке...</p>
+            </div>
+        </div>
+
+        <div class="screen leaders-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('main')">←</button>
+                <h2>🏆 Лидеры</h2>
+            </div>
+            <div class="screen-content">
+                <p>Таблица лидеров в разработке...</p>
+            </div>
+        </div>
+
+        <div class="screen history-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('main')">←</button>
+                <h2>📊 История</h2>
+            </div>
+            <div class="screen-content">
+                <p>История игр в разработке...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
