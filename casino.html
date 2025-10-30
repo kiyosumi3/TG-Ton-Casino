@@ -14,20 +14,17 @@
             <div class="header">
                 <button class="nav-btn" onclick="showScreen('profile')">👤</button>
                 <div class="currency">
-                    <span class="anchors">⚓ <span id="anchorCount">1,000</span></span>
+                    <span class="eggs">🐟 <span id="eggCount">1,000</span></span>
                     <span class="stars">⭐ <span id="starCount">100</span></span>
                 </div>
             </div>
 
-            <div class="water-container">
-                <div class="water"></div>
-                <div class="fish-animation">
-                    <div class="fish" style="animation-delay: 0s">🐟</div>
-                    <div class="fish" style="animation-delay: 1s">🐠</div>
-                    <div class="fish" style="animation-delay: 2s">🦈</div>
-                    <div class="fish" style="animation-delay: 3s">🐡</div>
+            <div class="passive-income">
+                <div class="income-info">
+                    <div class="income-title">Пассивный доход</div>
+                    <div class="income-rate">1 икринка/мин</div>
+                    <div class="income-timer" id="incomeTimer">00:00</div>
                 </div>
-                <div class="status-text">Вы на плаву</div>
             </div>
 
             <div class="main-buttons">
@@ -59,7 +56,7 @@
                     <div class="achievement-info">
                         <div class="achievement-name">Первый улов</div>
                         <div class="achievement-desc">Первый вывод подарка</div>
-                        <div class="achievement-reward">+10,000 ⚓</div>
+                        <div class="achievement-reward">+10,000 🐟</div>
                     </div>
                     <div class="achievement-status locked">🔒</div>
                 </div>
@@ -69,7 +66,7 @@
                     <div class="achievement-info">
                         <div class="achievement-name">Длинная удочка</div>
                         <div class="achievement-desc">10 забросов</div>
-                        <div class="achievement-reward">+50,000 ⚓</div>
+                        <div class="achievement-reward">+50,000 🐟</div>
                     </div>
                     <div class="achievement-status locked">🔒</div>
                 </div>
@@ -79,7 +76,7 @@
                     <div class="achievement-info">
                         <div class="achievement-name">Толстый рыбак</div>
                         <div class="achievement-desc">10к донат звезд</div>
-                        <div class="achievement-reward">+500,000 ⚓</div>
+                        <div class="achievement-reward">+500,000 🐟</div>
                     </div>
                     <div class="achievement-status locked">🔒</div>
                 </div>
@@ -89,7 +86,7 @@
                     <div class="achievement-info">
                         <div class="achievement-name">Шляпа</div>
                         <div class="achievement-desc">Выигрышная ставка на ноль</div>
-                        <div class="achievement-reward">+100,000 ⚓</div>
+                        <div class="achievement-reward">+100,000 🐟</div>
                     </div>
                     <div class="achievement-status locked">🔒</div>
                 </div>
@@ -99,7 +96,7 @@
                     <div class="achievement-info">
                         <div class="achievement-name">Поймал на крючок</div>
                         <div class="achievement-desc">Пригласил 50 друзей</div>
-                        <div class="achievement-reward">+1,000,000 ⚓</div>
+                        <div class="achievement-reward">+1,000,000 🐟</div>
                     </div>
                     <div class="achievement-status locked">🔒</div>
                 </div>
@@ -117,7 +114,7 @@
                 <div class="game-card" onclick="showScreen('roulette')">
                     <div class="game-icon">🎡</div>
                     <div class="game-name">Рулетка</div>
-                    <div class="game-desc">MIN 0.1 - MAX 20</div>
+                    <div class="game-desc">Красное/Черное</div>
                 </div>
 
                 <div class="game-card" onclick="showScreen('fishing')">
@@ -154,22 +151,64 @@
             </div>
 
             <div class="roulette-container">
-                <div class="roulette-wheel" id="rouletteWheel"></div>
+                <div class="roulette-wheel-container">
+                    <div class="roulette-wheel" id="rouletteWheel">
+                        <div class="wheel">
+                            <div class="wheel-numbers" id="wheelNumbers"></div>
+                            <div class="ball" id="rouletteBall"></div>
+                        </div>
+                    </div>
+                    <div class="wheel-pointer"></div>
+                </div>
                 
+                <div class="betting-area">
+                    <div class="bet-section">
+                        <div class="bet-title">Цвет</div>
+                        <div class="bet-buttons">
+                            <button class="bet-option" data-bet="red" onclick="placeBet('red')">Красное (x2)</button>
+                            <button class="bet-option" data-bet="black" onclick="placeBet('black')">Черное (x2)</button>
+                        </div>
+                    </div>
+
+                    <div class="bet-section">
+                        <div class="bet-title">Четность</div>
+                        <div class="bet-buttons">
+                            <button class="bet-option" data-bet="even" onclick="placeBet('even')">Четное (x2)</button>
+                            <button class="bet-option" data-bet="odd" onclick="placeBet('odd')">Нечетное (x2)</button>
+                        </div>
+                    </div>
+
+                    <div class="bet-section">
+                        <div class="bet-title">Сектора</div>
+                        <div class="bet-buttons">
+                            <button class="bet-option" data-bet="sector1" onclick="placeBet('sector1')">Сектор 1 (x3)</button>
+                            <button class="bet-option" data-bet="sector2" onclick="placeBet('sector2')">Сектор 2 (x3)</button>
+                            <button class="bet-option" data-bet="sector3" onclick="placeBet('sector3')">Сектор 3 (x3)</button>
+                        </div>
+                    </div>
+
+                    <div class="bet-section">
+                        <div class="bet-title">Ноль</div>
+                        <div class="bet-buttons">
+                            <button class="bet-option zero" data-bet="zero" onclick="placeBet('zero')">0 (x36)</button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="bet-controls">
-                    <div class="bet-info">
-                        <div>MIN 0.1 ⭐ - MAX 20 ⭐</div>
-                        <div class="current-bet">Ставка: <span id="currentBet">1</span> ⭐</div>
+                    <div class="current-bets">
+                        <div id="currentBets">Ставок: 0</div>
+                        <div>Общая ставка: <span id="totalBet">0</span> ⭐</div>
                     </div>
                     
-                    <div class="bet-buttons">
-                        <button class="bet-btn" onclick="changeBet(-0.1)">-0.1</button>
-                        <button class="bet-btn" onclick="changeBet(0.1)">+0.1</button>
-                        <button class="bet-btn" onclick="changeBet(-1)">-1</button>
-                        <button class="bet-btn" onclick="changeBet(1)">+1</button>
+                    <div class="bet-amount-controls">
+                        <button class="bet-amount-btn" onclick="changeBetAmount(-10)">-10</button>
+                        <div class="bet-amount-display">Ставка: <span id="betAmount">10</span> ⭐</div>
+                        <button class="bet-amount-btn" onclick="changeBetAmount(10)">+10</button>
                     </div>
                     
                     <button class="spin-btn" onclick="spinRoulette()">КРУТИТЬ</button>
+                    <button class="clear-btn" onclick="clearBets()">ОЧИСТИТЬ СТАВКИ</button>
                 </div>
             </div>
         </div>
@@ -212,9 +251,15 @@
             <div class="slots-container">
                 <div class="slots-machine">
                     <div class="slots-reel">
-                        <div class="slot" id="slot1">🎁</div>
-                        <div class="slot" id="slot2">🎁</div>
-                        <div class="slot" id="slot3">🎁</div>
+                        <div class="slot" id="slot1">
+                            <div class="nft-symbol">🎁</div>
+                        </div>
+                        <div class="slot" id="slot2">
+                            <div class="nft-symbol">🎁</div>
+                        </div>
+                        <div class="slot" id="slot3">
+                            <div class="nft-symbol">🎁</div>
+                        </div>
                     </div>
                 </div>
                 
@@ -317,6 +362,161 @@
             </div>
         </div>
 
+        <!-- Экран магазина -->
+        <div class="screen shop-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('main')">←</button>
+                <h2>🛍️ Магазин</h2>
+            </div>
+
+            <div class="shop-container">
+                <div class="exchange-section">
+                    <h3>💰 Обмен икринок на звезды</h3>
+                    <div class="exchange-rate">Курс: 100 🐟 = 1 ⭐</div>
+                    <div class="exchange-controls">
+                        <input type="number" id="exchangeAmount" placeholder="Количество икринок" min="100" step="100">
+                        <button class="exchange-btn" onclick="exchangeEggs()">ОБМЕНЯТЬ</button>
+                    </div>
+                    <div class="exchange-result" id="exchangeResult"></div>
+                </div>
+
+                <div class="shop-items">
+                    <h3>⭐ Покупка звезд</h3>
+                    <div class="shop-grid">
+                        <div class="shop-item" onclick="buyStars(100)">
+                            <div class="item-icon">⭐</div>
+                            <div class="item-name">100 звезд</div>
+                            <div class="item-price">100 TON</div>
+                        </div>
+                        <div class="shop-item" onclick="buyStars(500)">
+                            <div class="item-icon">⭐⭐</div>
+                            <div class="item-name">500 звезд</div>
+                            <div class="item-price">450 TON</div>
+                        </div>
+                        <div class="shop-item" onclick="buyStars(1000)">
+                            <div class="item-icon">⭐⭐⭐</div>
+                            <div class="item-name">1000 звезд</div>
+                            <div class="item-price">800 TON</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран лидеров -->
+        <div class="screen leaders-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('main')">←</button>
+                <h2>🏆 Лидеры</h2>
+            </div>
+
+            <div class="leaders-container">
+                <div class="leaders-tabs">
+                    <button class="tab-btn active" onclick="showLeadersTab('eggs')">По икринкам</button>
+                    <button class="tab-btn" onclick="showLeadersTab('stars')">По звездам</button>
+                    <button class="tab-btn" onclick="showLeadersTab('gifts')">По подаркам</button>
+                </div>
+
+                <div class="leaders-list" id="leadersList">
+                    <div class="leaderboard">
+                        <div class="leader-item first">
+                            <div class="leader-rank">1</div>
+                            <div class="leader-avatar">👑</div>
+                            <div class="leader-info">
+                                <div class="leader-name">Игрок 1</div>
+                                <div class="leader-score">1,000,000 🐟</div>
+                            </div>
+                        </div>
+                        <div class="leader-item second">
+                            <div class="leader-rank">2</div>
+                            <div class="leader-avatar">🥈</div>
+                            <div class="leader-info">
+                                <div class="leader-name">Игрок 2</div>
+                                <div class="leader-score">800,000 🐟</div>
+                            </div>
+                        </div>
+                        <div class="leader-item third">
+                            <div class="leader-rank">3</div>
+                            <div class="leader-avatar">🥉</div>
+                            <div class="leader-info">
+                                <div class="leader-name">Игрок 3</div>
+                                <div class="leader-score">600,000 🐟</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран профиля -->
+        <div class="screen profile-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('main')">←</button>
+                <h2>👤 Профиль</h2>
+            </div>
+            <div class="profile-content">
+                <div class="profile-info">
+                    <div class="profile-avatar">👤</div>
+                    <div class="profile-stats">
+                        <div class="stat">Уровень: <span id="userLevel">Новичок</span></div>
+                        <div class="stat">Игр сыграно: <span id="gamesPlayed">0</span></div>
+                        <div class="stat">Выигрыш: <span id="totalWon">0</span> ⭐</div>
+                        <div class="stat">Рефералы: <span id="referrals">0</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран заданий -->
+        <div class="screen tasks-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('main')">←</button>
+                <h2>🎯 Задания</h2>
+            </div>
+            <div class="tasks-content">
+                <div class="task-item">
+                    <div class="task-icon">🎰</div>
+                    <div class="task-info">
+                        <div class="task-name">Сыграть в слоты</div>
+                        <div class="task-desc">Сыграйте 10 раз в слотах</div>
+                        <div class="task-reward">Награда: 1,000 🐟</div>
+                    </div>
+                    <button class="task-btn" onclick="completeTask('slots')">Выполнить</button>
+                </div>
+                <div class="task-item">
+                    <div class="task-icon">🎣</div>
+                    <div class="task-info">
+                        <div class="task-name">Рыбак</div>
+                        <div class="task-desc">Сделайте 5 забросов</div>
+                        <div class="task-reward">Награда: 500 🐟</div>
+                    </div>
+                    <button class="task-btn" onclick="completeTask('fishing')">Выполнить</button>
+                </div>
+                <div class="task-item">
+                    <div class="task-icon">👥</div>
+                    <div class="task-info">
+                        <div class="task-name">Пригласить друга</div>
+                        <div class="task-desc">Пригласите 1 друга</div>
+                        <div class="task-reward">Награда: 2,000 🐟</div>
+                    </div>
+                    <button class="task-btn" onclick="completeTask('referral')">Выполнить</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран истории -->
+        <div class="screen history-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="showScreen('main')">←</button>
+                <h2>📊 История</h2>
+            </div>
+            <div class="history-content">
+                <div class="history-list" id="historyList">
+                    <div class="history-item">Пока нет истории игр</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Модальное окно для кейсов -->
         <div class="modal" id="caseModal">
             <div class="modal-content">
@@ -327,57 +527,6 @@
                 <div class="modal-body">
                     <div class="case-reward" id="caseReward"></div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Заглушки для остальных экранов -->
-        <div class="screen profile-screen">
-            <div class="screen-header">
-                <button class="back-btn" onclick="showScreen('main')">←</button>
-                <h2>👤 Профиль</h2>
-            </div>
-            <div class="screen-content">
-                <p>Профиль в разработке...</p>
-            </div>
-        </div>
-
-        <div class="screen tasks-screen">
-            <div class="screen-header">
-                <button class="back-btn" onclick="showScreen('main')">←</button>
-                <h2>🎯 Задания</h2>
-            </div>
-            <div class="screen-content">
-                <p>Задания в разработке...</p>
-            </div>
-        </div>
-
-        <div class="screen shop-screen">
-            <div class="screen-header">
-                <button class="back-btn" onclick="showScreen('main')">←</button>
-                <h2>🛍️ Магазин</h2>
-            </div>
-            <div class="screen-content">
-                <p>Магазин в разработке...</p>
-            </div>
-        </div>
-
-        <div class="screen leaders-screen">
-            <div class="screen-header">
-                <button class="back-btn" onclick="showScreen('main')">←</button>
-                <h2>🏆 Лидеры</h2>
-            </div>
-            <div class="screen-content">
-                <p>Таблица лидеров в разработке...</p>
-            </div>
-        </div>
-
-        <div class="screen history-screen">
-            <div class="screen-header">
-                <button class="back-btn" onclick="showScreen('main')">←</button>
-                <h2>📊 История</h2>
-            </div>
-            <div class="screen-content">
-                <p>История игр в разработке...</p>
             </div>
         </div>
     </div>
