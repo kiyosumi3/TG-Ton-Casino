@@ -704,3 +704,244 @@ body {
         font-size: 30px;
     }
 }
+/* Новый дизайн рулетки */
+.roulette-screen {
+    background: linear-gradient(135deg, #8B0000, #B22222, #8B0000);
+}
+
+.roulette-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.roulette-table {
+    background: #0d5c1a;
+    border: 3px solid #d4af37;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.roulette-numbers {
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+    gap: 2px;
+    margin-bottom: 10px;
+}
+
+.roulette-number {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12px;
+    border-radius: 4px;
+    color: white;
+    border: 1px solid #333;
+}
+
+.roulette-number.zero {
+    background: #008000;
+    grid-column: span 3;
+}
+
+.roulette-number.red {
+    background: #d40000;
+}
+
+.roulette-number.black {
+    background: #000000;
+}
+
+.roulette-bets-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+
+.bet-area {
+    background: rgba(255,255,255,0.9);
+    border: 2px solid #d4af37;
+    border-radius: 8px;
+    padding: 8px 4px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #333;
+}
+
+.bet-area:hover {
+    background: #ffeb3b;
+    transform: scale(1.05);
+}
+
+.bet-area.active {
+    background: #4CAF50;
+    color: white;
+}
+
+.bet-area.zero {
+    grid-column: span 1;
+}
+
+.bet-area.sector {
+    grid-column: span 1;
+}
+
+.bet-area.color {
+    grid-column: span 2;
+}
+
+.bet-area.even-odd {
+    grid-column: span 2;
+}
+
+.roulette-wheel-container {
+    background: rgba(0,0,0,0.7);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.roulette-wheel {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: #0d5c1a;
+    border: 5px solid #d4af37;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.wheel-numbers {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform 4s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.wheel-number {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    transform-origin: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.wheel-pointer {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid #d4af37;
+    z-index: 10;
+}
+
+.roulette-controls {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.bet-info-panel {
+    background: rgba(0,0,0,0.5);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.current-bet-display {
+    font-size: 24px;
+    font-weight: bold;
+    color: #4CAF50;
+    margin: 10px 0;
+}
+
+.bet-amount-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.bet-amount-btn {
+    background: #4CAF50;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 10px 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.bet-amount-btn:hover {
+    background: #45a049;
+}
+
+.roulette-action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.spin-roulette-btn {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    grid-column: span 2;
+}
+
+.clear-bet-btn {
+    background: #f44336;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.back-home-btn {
+    background: #2196F3;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Анимация вращения */
+@keyframes wheelSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(3600deg); }
+}
+
+.wheel-spinning {
+    animation: wheelSpin 4s cubic-bezier(0.2, 0.8, 0.3, 1);
+}

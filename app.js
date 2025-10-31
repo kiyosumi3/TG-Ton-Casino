@@ -1,6 +1,6 @@
 let tg = window.Telegram.WebApp;
 let userData = {
-    eggs: 1000,  // Икринки вместо якоринок
+    eggs: 1000,  // Икринки 
     stars: 100,
     level: 'brown',
     achievements: []
@@ -214,64 +214,172 @@ function loadGiftsFromStorage() {
 }
 
 // Рулетка
+// Рулетка - новые переменные
+let rouletteBetAmount = 100;
+let currentRouletteBet = null;
+let rouletteNumbers = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
+
+// Инициализация рулетки
 function initRoulette() {
-    const wheel = document.getElementById('rouletteWheel');
-    const numbers = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
+    createWheelNumbers();
+    updateRouletteUI();
+}
+
+function createWheelNumbers() {
+    const wheel = document.getElementById('wheelNumbers');
+    if (!wheel) return;
     
-    wheel.innerHTML = numbers.map(num => {
-        const color = num === 0 ? 'green' : (num % 2 === 0 ? 'red' : 'black');
-        return `<div class="roulette-number ${color}">${num}</div>`;
-    }).join('');
+    wheel.innerHTML = '';
+    
+    rouletteNumbers.forEach((num, index) => {
+        const angle = (index / rouletteNumbers.length) * 360;
+        const numberDiv = document.createElement('div');
+        numberDiv.className = `wheel-number ${getNumberColor(num)}`;
+        numberDiv.textContent = num;
+        numberDiv.style.transform = `rotate(${angle}deg)`;
+        wheel.appendChild(numberDiv);
+    });
 }
 
-function changeBet(amount) {
-    currentBet = Math.max(0.1, Math.min(20, currentBet + amount));
-    updateUI();
+function getNumberColor(num) {
+    if (num === 0) return 'green';
+    const redNumbers = [32, 19, 21, 25, 34, 27, 36, 30, 23, 5, 16, 1, 14, 9, 18, 7, 12, 3];
+    return redNumbers.includes(num) ? 'red' : 'black';
 }
 
-function spinRoulette() {
-    if (currentBet > userData.stars) {
+function updateRouletteUI() {
+    const betDisplay = document.getElementById('currentRouletteBet');
+    if (betDisplay) {
+        betDisplay.textContent = `${rouletteBetAmount} ⭐`;
+    }
+    
+    // Обновляем активные ставки
+    document.querySelectorAll('.bet-area').forEach(area => {
+        area.classList.remove('active');
+    });
+    
+    if (currentRouletteBet) {
+        const activeBet = document.querySelector(`[onclick="placeRouletteBet('${currentRouletteBet}')"]`);
+        if (activeBet) {
+            activeBet.classList.add('active');
+        }
+    }
+}
+
+function changeRouletteBet(amount) {
+    rouletteBetAmount = Math.max(100, Math.min(5000, rouletteBetAmount + amount));
+    updateRouletteUI();
+}
+
+function placeRouletteBet(betType) {
+    if (rouletteBetAmount > userData.stars) {
         showMessage('Недостаточно звезд!', 'error');
         return;
     }
     
-    userData.stars -= currentBet;
+    currentRouletteBet = betType;
+    updateRouletteUI();
+    showMessage(`Ставка: ${betType} - ${rouletteBetAmount} ⭐`, 'info');
+}
+
+function clearRouletteBet() {
+    currentRouletteBet = null;
+    updateRouletteUI();
+    showMessage('Ставка очищена', 'info');
+}
+
+function spinRouletteWheel() {
+    if (!currentRouletteBet) {
+        showMessage('Сделайте ставку!', 'error');
+        return;
+    }
+    
+    if (rouletteBetAmount > userData.stars) {
+        showMessage('Недостаточно звезд!', 'error');
+        return;
+    }
+    
+    // Снимаем ставку
+    userData.stars -= rouletteBetAmount;
     updateUI();
     
-    // Анимация вращения рулетки
-    const wheel = document.getElementById('rouletteWheel');
-    const spinDuration = 3000;
-    const randomDegree = 3600 + Math.floor(Math.random() * 360);
+    // Анимация вращения
+    const wheel = document.getElementById('wheelNumbers');
+    const spinDegrees = 3600 + Math.floor(Math.random() * 360);
     
-    wheel.style.transition = `transform ${spinDuration}ms cubic-bezier(0.2, 0.8, 0.3, 1)`;
-    wheel.style.transform = `rotate(${randomDegree}deg)`;
+    wheel.style.transition = 'transform 4s cubic-bezier(0.2, 0.8, 0.3, 1)';
+    wheel.style.transform = `rotate(${spinDegrees}deg)`;
     
+    // Определяем результат
     setTimeout(() => {
-        const result = Math.floor(Math.random() * 37); // 0-36
-        const isWin = Math.random() > 0.48; // 52% шанс выигрыша
+        const resultNumber = rouletteNumbers[Math.floor(Math.random() * rouletteNumbers.length)];
+        const isWin = checkRouletteWin(currentRouletteBet, resultNumber);
         
         if (isWin) {
-            const winAmount = currentBet * 2;
+            const winAmount = calculateRouletteWin(currentRouletteBet, rouletteBetAmount);
             userData.stars += winAmount;
             
-            // Добавляем подарок за выигрыш в рулетке
-            addGift('gift', winAmount, `Выигрыш в рулетке (число: ${result})`);
+            // Добавляем подарок за выигрыш
+            addGift('gift', winAmount, `Выигрыш в рулетке (${resultNumber})`);
             
-            showMessage(`Выигрыш: ${winAmount} ⭐! Число: ${result}`, 'win');
+            showMessage(`🎉 Выигрыш! Число: ${resultNumber} | +${winAmount} ⭐`, 'win');
             
             // Проверка достижения "Шляпа"
-            if (result === 0 && !userData.achievements.includes('hat_trick')) {
+            if (resultNumber === 0 && !userData.achievements.includes('hat_trick')) {
                 userData.achievements.push('hat_trick');
-                userData.eggs += 100000; // Икринки вместо якоринок
+                userData.eggs += 100000;
                 showMessage('🏆 Достижение "Шляпа" разблокировано! +100,000 🐟', 'win');
             }
         } else {
-            showMessage(`Проигрыш. Число: ${result}`, 'lose');
+            showMessage(`💸 Проигрыш. Число: ${resultNumber}`, 'lose');
         }
         
         updateUI();
         checkAchievements();
-    }, spinDuration);
+        currentRouletteBet = null;
+        updateRouletteUI();
+    }, 4000);
+}
+
+function checkRouletteWin(betType, resultNumber) {
+    const isRed = [32, 19, 21, 25, 34, 27, 36, 30, 23, 5, 16, 1, 14, 9, 18, 7, 12, 3].includes(resultNumber);
+    const isBlack = resultNumber !== 0 && !isRed;
+    
+    switch(betType) {
+        case 'zero':
+            return resultNumber === 0;
+        case 'red':
+            return isRed;
+        case 'black':
+            return isBlack;
+        case 'even':
+            return resultNumber !== 0 && resultNumber % 2 === 0;
+        case 'odd':
+            return resultNumber !== 0 && resultNumber % 2 === 1;
+        case '1st12':
+            return resultNumber >= 1 && resultNumber <= 12;
+        case '2nd12':
+            return resultNumber >= 13 && resultNumber <= 24;
+        case '3rd12':
+            return resultNumber >= 25 && resultNumber <= 36;
+        default:
+            return false;
+    }
+}
+
+function calculateRouletteWin(betType, betAmount) {
+    const multipliers = {
+        'zero': 36,
+        'red': 2,
+        'black': 2,
+        'even': 2,
+        'odd': 2,
+        '1st12': 3,
+        '2nd12': 3,
+        '3rd12': 3
+    };
+    
+    return betAmount * multipliers[betType];
 }
 
 // Рыбалка
