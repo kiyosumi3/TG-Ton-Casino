@@ -6,7 +6,6 @@ let userData = {
     achievements: []
 };
 
-let currentBet = 1;
 let slotBet = 10;
 let castCount = 0;
 let lastFreeSpin = 0;
@@ -157,9 +156,8 @@ function loadUserData() {
 
 // Обновление интерфейса
 function updateUI() {
-    document.getElementById('anchorCount').textContent = userData.eggs.toLocaleString(); // Изменено на eggs
+    document.getElementById('anchorCount').textContent = userData.eggs.toLocaleString();
     document.getElementById('starCount').textContent = userData.stars.toLocaleString();
-    document.getElementById('currentBet').textContent = currentBet;
     document.getElementById('slotBet').textContent = slotBet;
     document.getElementById('castCount').textContent = castCount;
     
