@@ -945,3 +945,48 @@ body {
 .wheel-spinning {
     animation: wheelSpin 4s cubic-bezier(0.2, 0.8, 0.3, 1);
 }
+/* Исправления для колеса рулетки */
+.wheel-number {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    left: 0;
+    top: 0;
+    transform-origin: 100% 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 10px;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+.wheel-number.green {
+    background: #008000;
+}
+
+.wheel-number.red {
+    background: #d40000;
+}
+
+.wheel-number.black {
+    background: #000000;
+}
+
+/* Исправления для адаптивности */
+@media (max-width: 400px) {
+    .roulette-wheel {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .wheel-number {
+        font-size: 8px;
+    }
+    
+    .bet-area {
+        font-size: 9px;
+        padding: 6px 2px;
+    }
+}
